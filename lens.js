@@ -66,7 +66,34 @@ function arrayItem(index) {
       return array
         .slice(0, index)
         .concat(newItem)
-        .concat(array.slice(index + 1)); 
+        .concat(array.slice(index + 1));
+    }
+  };
+}
+
+function arrayWhere(property, value) {
+  return {
+    get: function(array) {
+      for (var i = 0, l = array.length; i < l; i++) {
+        var item = array[i];
+
+        if (item[property] === value) {
+          return item;
+        }
+      }
+    },
+
+    set: function(array, newItem) {
+      for (var i = 0, l = array.length; i < l; i++) {
+        var item = array[i];
+
+        if (item[property] === value) {
+          return array
+            .slice(0, i)
+            .concat(newItem)
+            .concat(array.slice(i + 1));
+        }
+      }
     }
   };
 }
@@ -119,6 +146,7 @@ function extend(target, props) {
 }
 
 exports.arrayItem = arrayItem;
+exports.arrayWhere = arrayWhere;
 exports.prop = prop;
 exports.compose = composeLenses;
 exports.update = update;

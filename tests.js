@@ -280,6 +280,20 @@ describe("lens.arrayItem", function() {
   });
 });
 
+describe("lens.arrayWhere", function() {
+  var original = [{id: "a"}, {id: "b"}, {id: "c"}];
+  var item1 = lens.arrayWhere("id", "b");
+
+  it("can get item", function() {
+    assert.deepEqual(item1.get(original), {id: "b"});
+  });
+
+  it("can set item", function() {
+    var newArray = item1.set(original, {id: "z"});
+    assert.deepEqual(newArray, [{id: "a"}, {id: "z"}, {id: "c"}]);
+  });
+});
+
 describe("composed lenses with lens.compose", function() {
   var foo = lens.prop("foo");
   var bar = lens.prop("bar");
@@ -375,7 +389,7 @@ describe("lens.build", function() {
   describe("object -> array -> object -> array", function() {
     var l = lens.build({
       a: [
-        { b: [] } 
+        { b: [] }
       ]
     });
     var target = immutable({
