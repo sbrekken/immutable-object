@@ -282,7 +282,9 @@ describe("lens.arrayItem", function() {
 
 describe("lens.arrayWhere", function() {
   var original = [{id: "a"}, {id: "b"}, {id: "c"}];
-  var item1 = lens.arrayWhere("id", "b");
+  var item1 = lens.arrayWhere(function(item) {
+    return item.id === "b"
+  });
 
   it("can get item", function() {
     assert.deepEqual(item1.get(original), {id: "b"});

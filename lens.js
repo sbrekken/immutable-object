@@ -71,13 +71,13 @@ function arrayItem(index) {
   };
 }
 
-function arrayWhere(property, value) {
+function arrayWhere(filterFn) {
   return {
     get: function(array) {
       for (var i = 0, l = array.length; i < l; i++) {
         var item = array[i];
 
-        if (item[property] === value) {
+        if (filterFn(item)) {
           return item;
         }
       }
@@ -87,7 +87,7 @@ function arrayWhere(property, value) {
       for (var i = 0, l = array.length; i < l; i++) {
         var item = array[i];
 
-        if (item[property] === value) {
+        if (filterFn(item)) {
           return array
             .slice(0, i)
             .concat(newItem)
